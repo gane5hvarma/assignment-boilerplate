@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snap-socket-server
+  labels:
+    app: snap-socket-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snap-socket-server
+  template:
+    metadata:
+      labels:
+        app: snap-socket-server
+    spec:
+      containers:
+      - name: snap-socket-container
+        image: gane5h/snap_socket:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "300m"

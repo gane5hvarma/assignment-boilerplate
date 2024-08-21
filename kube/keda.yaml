@@ -1,0 +1,17 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cpu-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: snap-socket-server   
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  cooldownPeriod: 15
+  pollingInterval: 15 
+  triggers:
+  - type: cpu
+    metadata:
+      type: Utilization    # Metric type (Utilization, AverageValue, Value)
+      value: "50"          # Target CPU utilization percentage
